@@ -44,37 +44,22 @@ var remmoveChar = function(s, indexToRemove) {
     return sArray.join("");
 }
 
-// remove instances of a pair of characters from a given string 
-var removePair = function(s, firstChar, secondChar) {
-    // find an instance of the first character in the given pair
-    for (let i=0; i<s.length; i++) {
-        if (s[i] == firstChar) {
-            // find its paired counterpart
-            for (let j=i+1; j<s.length; j++) {
-                if (s[j] == secondChar) {
-                    // remove the pair
-                    s = remmoveChar(s, j);
-                    s = remmoveChar(s, i);
-                    break;
-                }
-            }
-        }
-    }
-
-    // return the updated string
-    return s;
-}
-
 // function to determine if the input string is valid given the rules defined above
 var isValid = function(s) {
-    // removing instances of '()' 
-    s = removePair(s, '(', ')');
+    let n = s.length; // to define the number of iterations statically
 
-    // removing instances of '[]' 
-    s = removePair(s, '[', ']');
-
-    // removing instances of '{}' 
-    s = removePair(s, '{', '}');
+    for (let i=0; i<n; i++) {
+        // remove an instance of a pair of parentheses, bracket, or curley brackets
+        for (let j=0; j<s.length-1; j++) {
+            if ( (s[j]=='(' && s[j+1]==')')  
+                || (s[j]=='[' && s[j+1]==']')
+                || (s[j]=='{' && s[j+1]=='}') ) 
+            {
+                s = remmoveChar(s, j+1);
+                s = remmoveChar(s, j);
+            }
+        } 
+    }
 
     // since all pairs of parentheses are already exhausted,
     // check if the updated string is empty
@@ -82,6 +67,8 @@ var isValid = function(s) {
     return s.length==0;
 };
 
-let sampleInput1 = "([)]";
+let sampleInput1 = "()[]{}";
+let sampleInput2 = "([)]";
+let sampleInput3 = "(([]){})";
 
-console.log(isValid(sampleInput1));
+console.log(isValid(sampleInput3));
