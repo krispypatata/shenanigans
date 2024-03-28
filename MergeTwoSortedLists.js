@@ -58,7 +58,7 @@ function displayList(linkedList, title) {
  * @return {ListNode}
  */
 var mergeTwoLists = function(list1, list2) {
-    let mergedList = new ListNode(-101); // resulting merged list; set the first node's value to minimum
+    let mergedList = new ListNode(-101); // resulting merged list; set the first node's value to minimum-1
     let currentNode = mergedList; // pointer that will be used to traverse through the nodes of the mergedList
 
     // copy contents of list1 to mergedList
@@ -94,6 +94,7 @@ var mergeTwoLists = function(list1, list2) {
     }
 
     // return the head of the merged linked list
+    // disregard the first node (the one with value set to minimum-1)
     return mergedList.next;
 };
 
