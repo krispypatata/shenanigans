@@ -55,16 +55,6 @@ Constraints:
  * @return {number}
  */
 var removeElement = function(nums, val) {
-    let valOccurences = 0;
-
-    // count the number of occurences of the given value at the nums array
-    for (let i=0; i<nums.length; i++) {
-        if (nums[i]==val) {
-            valOccurences++;
-            
-        }
-    }
-
     // remove each occurence of the given value at the nums array
     // start at the last index to not mess up the removal process
     for (let i=nums.length; i>=0; i--) {
