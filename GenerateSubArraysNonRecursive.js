@@ -2,11 +2,10 @@
 author: Keith Ginoel Gabinete
 created: 30.03.2024 01:22:45
 */
-/*
-
-
-*/
-
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
 var generateSubArrays = function(nums) {
     // generate sub arrays using splicing
     let subArrays = [];
@@ -25,9 +24,13 @@ var generateSubArrays = function(nums) {
     return subArrays;        
 }
 
+
+// sample run
 let sampleArray = [1, 2, 3, 4];
+
+console.log("Sample array:")
 console.log(sampleArray);
-console.log("Sub-arrays:");
+console.log("\nSub-arrays:");
 sampleArraySubArrays = generateSubArrays(sampleArray);
 for (let i=0; i<sampleArraySubArrays.length; i++)
     console.log(sampleArraySubArrays[i]);
