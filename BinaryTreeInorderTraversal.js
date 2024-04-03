@@ -43,17 +43,20 @@ function TreeNode(val, left, right) {
 
 /**
  * @param {TreeNode} node
- * @param {number[]} stack
+ * @param {number[]} storage
  * @return {void}
  */
-function traverse(node, stack) {
+function traverseThroughNodes(node, storage) {
     if (node==null) {
         return;
     }
 
-    traverse(node.left, stack);
-    stack.push(node.val);
-    traverse(node.right, stack);
+    // left
+    traverseThroughNodes(node.left, storage);
+    // middle
+    storage.push(node.val);
+    // right
+    traverseThroughNodes(node.right, storage);
 
 }
 
@@ -63,13 +66,12 @@ function traverse(node, stack) {
  */
 var inorderTraversal = function(root) {
     let inorderTraversalArray = [];
-    let currentNode = root;
 
-    // inorderTraversalArray.push(currentNode.val);
-    traverse(root, inorderTraversalArray);
-    console.log(inorderTraversalArray);
+    traverseThroughNodes(root, inorderTraversalArray);
+
+    return inorderTraversalArray;
 };
 
+// sample run
 let sampleRoot = new TreeNode(1, null, new TreeNode(2, new TreeNode(3)));
-
-inorderTraversal(sampleRoot);
+console.log(inorderTraversal(sampleRoot));
