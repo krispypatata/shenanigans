@@ -34,7 +34,7 @@ function TreeNode(val, left, right) {
     this.val = (val===undefined ? 0 : val)
     this.left = (left===undefined ? null : left)
     this.right = (right===undefined ? null : right)
- }
+}
 
 
 /**
@@ -42,29 +42,30 @@ function TreeNode(val, left, right) {
  * @param {number[]} values
  * @return {void}
  */
-function performPreOrderTraversal(node, values) {
+function performPreorderTraversal(node, values) {
     if (node==null) {
+        values.push(null);
         return;
     }
 
     values.push(node.val);
-    performPreOrderTraversal(node.left, values);
-    performPreOrderTraversal(node.right, values);
+    performPreorderTraversal(node.left, values);
+    performPreorderTraversal(node.right, values);
 }
 
 
 /**
  * @param {TreeNode} root
- * @return {number[]} 
+ * @return {string} 
  */
 function getTreeValues(root) {
     let values = [];
 
-    // get the values of the binary tree nodes using pre-order traversal
-    performPreOrderTraversal(root, values);
+    // get the values of the binary tree nodes using Preorder Traversal
+    performPreorderTraversal(root, values);
 
     // return the retrieved values
-    return values;
+    return values.join();
 }
 
 
@@ -76,26 +77,17 @@ function getTreeValues(root) {
 var isSameTree = function(p, q) {
     // extract the node values of the two binary tress
     let pValues = getTreeValues(p), qValues = getTreeValues(q);
-    
-    // check if the two arrays have the same length
-    if (pValues.length!=qValues.length) {
-        return false;
-    }
 
-    // check if each value at the same index is equal in both arrays
-    for (let i=0; i<pValues.length; i++) {
-        if (pValues[i]!=qValues[i]) {
-            return false;
-        }
-    }
-
-    // the two binary trees are the same
-    return true;
+    // check if the string representations of the two binary trees are the same
+    return pValues==qValues;
 };
 
+
 // sample run
-let sampleP = new TreeNode(1, new TreeNode(2), new TreeNode(3));
-let sampleQ = new TreeNode(1, new TreeNode(2), new TreeNode(4));
+// let sampleP = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+// let sampleQ = new TreeNode(1, new TreeNode(2), new TreeNode(4));
+let sampleP = new TreeNode(1, new TreeNode(1), null);
+let sampleQ = new TreeNode(1, null, new TreeNode(1));
 
 console.log("Contents of two sample binary trees:")
 console.log(getTreeValues(sampleP));
