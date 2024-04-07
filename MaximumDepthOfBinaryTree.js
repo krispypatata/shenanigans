@@ -1,23 +1,25 @@
 
 /*
 author: Keith Ginoel Gabinete
-created: 06.04.2024 00:08:18
+created: 07.04.2024 20:25:24
 */
 /*
-Given the root of a binary tree, check whether it is a mirror 
-of itself (i.e., symmetric around its center).
+Given the root of a binary tree, return its maximum depth.
+
+A binary tree's maximum depth is the number of nodes along the 
+longest path from the root node down to the farthest leaf node.
 
 Example 1:
-Input: root = [1,2,2,3,4,4,3]
-Output: true
+Input: root = [3,9,20,null,null,15,7]
+Output: 3
 
 Example 2:
-Input: root = [1,2,2,null,3,null,3]
-Output: false
+Input: root = [1,null,2]
+Output: 2
 
 Constraints:
 
-    The number of nodes in the tree is in the range [1, 1000].
+    The number of nodes in the tree is in the range [0, 104].
     -100 <= Node.val <= 100
 */
 
@@ -30,6 +32,45 @@ function TreeNode(val, left, right) {
 }
 
 
+// /**
+//  * @param {TreeNode} root
+//  * @return {number}
+//  */
+// var maxDepth = function(root) {
+//     if (root==null) {
+//         return 0;
+//     } else {
+//         if (maxDepth(root.left) > maxDepth(root.right)) {
+//             return maxDepth(root.left)+1;
+//         } else {
+//             return maxDepth(root.right)+1;
+//         }
+//     }
+// };
+
+
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    if (root==null) {
+        return 0;
+    } else {
+        let depthOfLeftSubtree = maxDepth(root.left);
+        let depthOfRigthSubtree = maxDepth(root.right);
+
+        if (depthOfLeftSubtree>depthOfRigthSubtree) {
+            return depthOfLeftSubtree+1;
+        } else {
+            return depthOfRigthSubtree+1;
+        }
+    }
+};
+
+
+
+
 /**
  * @param {TreeNode} node
  * @param {number[]} values
@@ -39,7 +80,7 @@ function performPreorderTraversal(node, values) {
     let depth = 0;
 
     if (node==null) {
-        values.push(null);
+        values.push('null');
         return;
     }
 
@@ -50,79 +91,25 @@ function performPreorderTraversal(node, values) {
 
 
 /**
- * @param {TreeNode} node
- * @param {number[]} values
- * @return {void}
- */
-function performPostorderTraversal(node, values) {
-    if (node==null) {
-        values.push(null);
-        return;
-    }
-
-    performPostorderTraversal(node.left, values);
-    performPostorderTraversal(node.right, values);
-    values.push(node.val);
-}
-
-
-/**
  * @param {TreeNode} root
  * @return {string} 
  */
-function getTreeValues(root, traversalType) {
+function getTreeValues(root) {
     let values = [];
 
-    // get the values of the binary tree nodes using Preorder or Postorder Traversal
-    if (traversalType==1) performPreorderTraversal(root, values);
-    else if (traversalType==2) {
-        performPostorderTraversal(root, values);
-        values.reverse();
-    }
+    // get the values of the binary tree nodes using Preorder Traversal
+    performPreorderTraversal(root, values);
 
     // return the retrieved values
     return values.join();
 }
 
 
-/**
- * @param {TreeNode} p
- * @param {TreeNode} q
- * @return {boolean}
- */
-var isSameTree = function(p, q) {
-    // extract the node values of the two binary tress
-    let pValues = getTreeValues(p, 1), qValues = getTreeValues(q, 2);
-
-    // check if the string representations of the two binary trees are the same
-    return pValues==qValues;
-};
-
-
-/**
- * @param {TreeNode} root
- * @return {boolean}
- */
-var isSymmetric = function(root) {
-    // check if the root or its children are null
-    if (root==null || root.left==null || root.right==null) {
-        // if both children are null, then it is symmetric
-        if (root.left==null && root.right==null) {
-            return true;
-        }
-
-        return false;
-    }
-
-    // check if the left and right subtrees of the given tree are identical or not
-    return isSameTree(root.left, root.right);
-};
-
-
 // sample run
 let sampleTree = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)), new TreeNode(2, new TreeNode(4), new TreeNode(3)));
 
 console.log("Contents of the sample tree")
-console.log(getTreeValues(sampleTree, 1));
-console.log("\nIs the tree symmteric?");
-console.log(isSymmetric(sampleTree));
+console.log("[" + getTreeValues(sampleTree) + "]");
+
+console.log("\nMaximum depth of the tree");
+console.log(maxDepth(sampleTree));
