@@ -69,8 +69,6 @@ var maxDepth = function(root) {
 };
 
 
-
-
 /**
  * @param {TreeNode} node
  * @param {number[]} values
