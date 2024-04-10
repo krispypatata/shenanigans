@@ -1,6 +1,6 @@
 /*
 author: Keith Ginoel Gabinete
-created: 04.04.2024 00:03:22
+created: 10.04.2024 23:39:26
 */
 /*
 Given the root of a binary tree, return the postorder traversal of its nodes' values.
@@ -56,7 +56,7 @@ let traverseThroughNodesUsingPostOrderTraversal = function (node, storage) {
  * @param {TreeNode} root
  * @return {number[]}
  */
-var postorderTraversal = function(root) {
+var preorderTraversal = function(root) {
     let contents = [];
 
     traverseThroughNodesUsingPostOrderTraversal(root, contents);
