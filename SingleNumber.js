@@ -31,5 +31,30 @@ Constraints:
  * @return {number}
  */
 var singleNumber = function(nums) {
-    
+    // traverse the array
+    for (let i = 0; i<nums.length; i++) {
+        let count = 0;
+        // traverse the array again to count the occurence of each element
+        for (let j=0; j<nums.length; j++) {
+            if (nums[i]===nums[j]) {
+                count ++;
+            }
+        }
+
+        // if the element only appeared once, return the element
+        if (count<2) {
+            return nums[i];
+        }
+    }
+
+    return;  // return undefined if no single element found
 };
+
+// sample run
+const sampleNums1 = [2,2,1];
+const sampleNums2 = [4,1,2,1,2];
+const sampleNums3 = [1];
+
+console.log(singleNumber(sampleNums1)); // 1
+console.log(singleNumber(sampleNums2)); // 4
+console.log(singleNumber(sampleNums3)); // 1
