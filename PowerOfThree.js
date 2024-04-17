@@ -1,6 +1,6 @@
 /*
 @author Keith Ginoel S. Gabinete
-@date 2024-04-18 01:33:14
+@date 2024-04-18 12:25:10
 */
 /*
 Given an integer n, return true if it is a power of three. Otherwise, return false.
