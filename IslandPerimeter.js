@@ -37,10 +37,55 @@ Constraints:
     There is exactly one island in grid.
 */
 
+
 /**
  * @param {number[][]} grid
  * @return {number}
  */
 var islandPerimeter = function(grid) {
-    
+    let perimeter = 4; // perimeter of a single cell island
+    let countOne = 0;  // count of land cells
+
+    // count the number of land cells
+    for (let i=0; i<grid.length; i++) {
+        grid[i].forEach((cell) => {
+            if (cell===1) {
+                countOne ++;
+            }
+        })
+    }
+
+    // initial perimeter value = perimeter of a single cell island * number of land cells
+    perimeter *= countOne;
+
+    // check for adjacent land cells to correct the perimeter
+    for (let i=0; i<grid.length; i++) {
+        for (let j=0; j<grid[i].length; j++) {
+            // check if the current cell and the cell above are both land cells
+            if (i>0) {
+                const topCell = grid[i-1][j];
+                if (grid[i][j]===1 && topCell===1) {
+                    perimeter -=2; // subtract the shared perimeter (2 because it is shared by two cells)
+                }
+            }
+
+            // check if the current cell and the cell to the right are both land cells
+            if (j<grid[i].length-1) {
+                const rightCell = grid[i][j+1];
+                if (grid[i][j]===1 && rightCell===1) {
+                    perimeter -=2;
+                }
+            }
+        }
+    }
+
+    // return the corrected perimeter
+    return perimeter;
 };
+
+// sample run
+const sampleInputGrid1 = [[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]];
+const sampleInputGrid2 = [[1,0]]
+
+console.log(islandPerimeter(sampleInputGrid1));
+console.log(islandPerimeter(sampleInputGrid2));
