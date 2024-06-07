@@ -2,8 +2,6 @@
 author: Keith Ginoel Gabinete
 created: 7 June 2024 23:34:32
 */
-
-
 /*
 Best Time to Buy and Sell Stock
 
