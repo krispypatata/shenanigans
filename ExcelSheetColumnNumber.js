@@ -46,25 +46,23 @@ var titleToNumber = function(columnTitle) {
 
     // get the equivalent ASCII codes of the characters in columnTitle
     for (let i=0; i<columnTitle.length; i++) {
-        equivalentAsciiCodes.push(columnTitle.charCodeAt(i));
+        equivalentAsciiCodes.splice(0, 0, columnTitle.charCodeAt(i)); // insert at head so that we won't have to reverse the array later
     }
-
+    
     // calculate the column number
     let columnNumber = 0;
-    for (let i=0; i<equivalentAsciiCodes.length-1; i++) {
+    for (let i=0; i<equivalentAsciiCodes.length; i++) {
         // example: for 'ZY'
-        // Z = 26 * 26 = 676    [ascii code for Z = 90, ascii code for A = 65, 90-65+1 = 26]
-        // Y = 25               [ascii code for Y = 89, ascii code for A = 65, 89-65+1 = 25]
-        // columnNumber = 676 + 25 = 701
-        columnNumber += (equivalentAsciiCodes[i] - asciiCodeForA + 1) * nCol;
+        // Z = 26; Y = 25
+        // column number of 'ZY':
+        // 26 * (26^1) + 25 * (26^0) = 701
+        columnNumber += (equivalentAsciiCodes[i] - asciiCodeForA + 1) * Math.pow(nCol, i);
     }
-
-    // add the last character's equivalent ASCII code
-    columnNumber += equivalentAsciiCodes[equivalentAsciiCodes.length-1] - asciiCodeForA + 1;
 
     // return the result
     return columnNumber;
 };
+
 
 // sample run
 console.log('Input: columnTitle = "A"');
@@ -75,3 +73,6 @@ console.log('Output: ' + titleToNumber('AB')); // expected output: 28
 console.log();
 console.log('Input: columnTitle = "ZY"');
 console.log('Output: ' + titleToNumber('ZY')); // expected output: 701
+console.log();
+console.log('Input: columnTitle = "FXSHRXW"');
+console.log('Output: ' + titleToNumber('FXSHRXW')); // expected output: 2147483647
