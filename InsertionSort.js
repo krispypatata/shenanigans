@@ -1,4 +1,4 @@
-// Insertino Sort in Javascript
+// Insertion Sort in Javascript
 
 // define a function that performs Insertion sort
 // no need to return anything since arrays in javascript are mutable
