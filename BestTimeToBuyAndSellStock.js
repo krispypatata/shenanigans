@@ -1,8 +1,9 @@
 /*
 author: Keith Ginoel Gabinete
-created: 7 June 2024 23:34:32
+created: 29 June 2024 00:04:11
 */
 /*
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 Best Time to Buy and Sell Stock
 
 You are given an array prices where prices[i] is the price of a given stock on the ith day.
@@ -28,35 +29,47 @@ Constraints:
     0 <= prices[i] <= 104
 */
 
+
 /**
  * @param {number[]} prices
  * @return {number}
  */
 var maxProfit = function(prices) {
-    // find the index of the minimum price
-    let indexOfMin = 0;
+    /*
+    To solve this problem, two variables are necessary:
+    1. minPrice = the current minimum price of the stock
+    2. maxProfit = the maximum profit that can be achieved by subtracting the current price of the stock with the minimum price
+    */
+    let minPrice = prices[0]; // initialize minPrice to the first element in the prices array
+    let maxProfit = 0;
+
+    // loop through the prices array starting from the second element since the first element is already used to initialize minPrice
     for (let i=1; i<prices.length; i++) {
-        if (prices[i] < prices[indexOfMin]) {
-            indexOfMin = i;
+        // if the current price is less than the minPrice, update the minPrice
+        if (prices[i]<minPrice) {
+            minPrice = prices[i];
+            continue; // skip the rest of the loop and proceed to the next iteration to avoid unnecessary operations
         }
-    }
 
-    // find the index of the maximum price starting from the index of the minimum price
-    let indexOfMax = indexOfMin;
-    for (let i=indexOfMin; i<prices.length; i++) {
-        if (prices[i] > prices[indexOfMax]) {
-            indexOfMax = i;
-        }
-    }
+        // calculate the current profit by subtracting the minimum price from the current price
+        const currentProfit = prices[i] - minPrice;
 
-    // calculate the maximum profit
-    const maxProfit = prices[indexOfMax] - prices[indexOfMin];
+        // if the calculated profit is greater than the maxProfit, update the maxProfit
+        if (currentProfit>maxProfit) maxProfit = currentProfit;
+    }
 
     // return the result
     return maxProfit;
 };
 
+
 // sample run
 const prices = [7,1,5,3,6,4]; 
-console.log('Input: prices = ' + prices);
-console.log('Output: ' + maxProfit(prices)); // expected output: 5
+console.log('Input: prices = ' + prices); // expected output: 5
+console.log('Output: ' + maxProfit(prices)); 
+console.log();
+console.log('Input: prices = [7,6,4,3,1]'); // expected output: 0
+console.log('Output: ' + maxProfit([7,6,4,3,1]));
+console.log();
+console.log('Input: prices = [2,4,1]'); // expected output: 2
+console.log('Output: ' + maxProfit([2,4,1]));
