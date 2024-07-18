@@ -50,10 +50,7 @@ var distributeCandies = function(candyType) {
     // the maximum number of different types of candies Alice can eat is the minimum of the number of unique candies and n/2
     // if the number of unique candies is less than n/2, then Alice can eat all the unique candies
     // else if the number of unique candies is greater than or equal to n/2, then Alice can only eat n/2 unique candies
-    if (typesOfCandy.size < candyType.length/2)
-        return typesOfCandy.size;
-
-    return candyType.length/2;
+    return typesOfCandy.size < candyType.length/2 ? typesOfCandy.size : candyType.length/2;
 };
 
 
