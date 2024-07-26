@@ -46,10 +46,8 @@ var flipAndInvertImage = function(image) {
     // iterate through the image and reverse each row
     // we can use the map function of an array to do this since we need to return a new array anyway
     const flippedImage = image.map((row) => {
-        const reversedRow = row.reverse();
-
-        // iterate through the reversed row and flip the bits
-        const reversedRowWithFlippedBits = reversedRow.map((bit) => {
+        // reverse the row and iterate through the reversed row to flip the bits
+        const reversedRowWithFlippedBits = row.reverse().map((bit) => {
             return bit === 0 ? 1 : 0;
         })
 
